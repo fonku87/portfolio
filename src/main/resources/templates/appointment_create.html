@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white" th:replace="~{headers/header-appointments :: copy}"></header>
+
+<!-- About section-->
+<section id="misCitas">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2>Crear cita</h2>
+                <form th:action="@{/appointment_save}" method="post" style="max-width: 600px; margin: 0 auto;">
+                    <div class="m-3">
+
+                        <div class="form-group row">
+                            <label class="col-4 col-form-label" for="startDate">Fecha y Hora: </label>
+                            <div class="col-8">
+                                <input id="startDate" name="startDate" type="datetime-local" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div align="center" style="padding-top: 15px;">
+                            <button type="submit" class="btn btn-info">Crear cita</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

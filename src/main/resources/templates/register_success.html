@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white">
+    <div class="container px-4 text-center">
+        <h1 class="fw-bolder">Registro Realizado</h1>
+        <p class="lead">Te has registrado correctamente! Haz click en login para acceder.</p>
+        <a class="btn btn-lg btn-light" th:href="@{/login}">Login</a>
+    </div>
+</header>
+
+<section>
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

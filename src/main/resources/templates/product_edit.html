@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white" th:replace="~{headers/header-product :: copy}"></header>
+
+<!-- About section-->
+<section>
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-4">
+                <h2>Modificar producto</h2>
+                <div th:if="${error != null}" class="alert alert-danger" role="alert" th:text="'Error: ' + ${error}">
+                </div>
+                <form th:action="@{/product_update}" th:object="${product}" method="post">
+                    <input type="hidden" id="id" th:field="*{id}" />
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter name" th:field="*{name}" required>
+                    </div>
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="price">Precio</label>
+                        <input type="number" class="form-control" id="price" placeholder="Enter price" th:field="*{price}" required>
+                    </div>
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="description">Descripcion</label>
+                        <textarea class="form-control" id="description" rows="3" th:field="*{description}" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Modificar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

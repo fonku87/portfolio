@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header class="bg-info bg-gradient text-white" th:fragment="copy">
+    <div class="container px-4 text-center">
+        <h1 class="fw-bolder">Citas</h1>
+        <p class="lead">Elige una acción</p>
+        <a class="btn btn-lg btn-light" th:text="${isAdmin ? 'Citas libres' : 'Mis citas'}" th:href="@{/appointments}"></a>
+        <a class="btn btn-lg btn-light" th:if="${isAdmin}" th:href="@{/appointments-pending}">Citas pendientes</a>
+        <a class="btn btn-lg btn-light" th:if="${isAdmin}" th:href="@{/appointments-confirmed}">Citas confirmadas</a>
+        <a class="btn btn-lg btn-light" th:text="${isAdmin ? 'Crear cita' : 'Reservar cita'}" th:href="@{/appointment-create}"></a>
+    </div>
+</header>
+</body>
+</html>
