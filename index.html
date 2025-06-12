@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white">
+    <div class="container px-4 text-center">
+        <h1 class="fw-bolder">Bienvenido a Roste Fotografia</h1>
+        <p class="lead">Realizamos todo tipo de reportajes. Pide tu cita!</p>
+        <a class="btn btn-lg btn-light" sec:authorize="${isAnonymous()}" th:href="@{/login}">Login</a>
+        <a class="btn btn-lg btn-light" sec:authorize="${isAnonymous()}" th:href="@{/register}">Registrarse</a>
+        <a class="btn btn-lg btn-light" sec:authorize="${!isAnonymous()}" th:href="@{/appointment-create}">Reservar cita</a>
+    </div>
+</header>
+<!-- Carrousel section-->
+<section id="about" class="container px-4">
+    <div class="row gx-8 justify-content-center">
+        <div id="myCarousel" class="carousel slide w-75" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="images/boda.jpg" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption text-start">
+                            <p>No sueñes más y hazlo realidad.</p>
+                            <p><a class="btn btn-lg btn-info" th:href="@{/register}">regístrate</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="d-block w-100" src="images/bautizo.jpg" width="100%" height="50%" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <p>Inmortaliza los momentos más importantes</p>
+                            <p><a class="btn btn-lg btn-info" th:href="@{/register}">regístrate</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                   <img class="d-block w-100" src="images/comunion.png" width="100%" height="50%" alt="First slide">
+                    <div class="container">
+                        <div class="carousel-caption text-end">
+                            <p>Nuestra experiencia y trabajo nos avalan.</p>
+                            <p><a class="btn btn-lg btn-info" th:href="@{/register}">regístrate</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </div>
+</section>
+<!-- Productos section-->
+<section class="bg-light" id="services">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-info">Reportajes</h2>
+                <div class="card-group">
+                    <div class="card border-info">
+                        <img class="card-img-top" src="images/boda.jpg" alt="bodas">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Bodas</h5>
+                            <p class="card-text">Celebra con nosotros tu día y quedate con un recuerdo para toda la vida.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                    <div class="card border-info">
+                        <img class="card-img-top" src="images/bautizo.jpg" alt="bautizos">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Bautizos</h5>
+                            <p class="card-text">Captura su primer sacramento con nosotros y tendrás un recuerdo imborrable.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                    <div class="card border-info">
+                        <img class="card-img-top" src="images/comunion.png" alt="comuniones">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Comuniones</h5>
+                            <p class="card-text">En este día tan importante para los niños y niñas nosotros queremos colaborar para que tenga un recuerdo para siempre en forma de foto.</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                    <div class="card border-info">
+                        <img class="card-img-top" src="images/embarazo.png" alt="embarazos">
+                        <div class="card-body">
+                            <h5 class="card-title text-info">Y mucho más...</h5>
+                            <p class="card-text">Cuenta con nosotros para crear recuerdos...</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8 offset-6">
+                <a class="btn btn-lg btn-info text-light mt-4" th:href="@{/appointments}">Reserva tu cita!</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact section-->
+<section id="contact">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="text-info">Contacta con nosotros</h2>
+                <p class="lead">Dirección: Calle Colegio Naval Sacramento 12</p>
+                <p class="lead">Email: roste.fotografia@roste.es</p>
+                <p class="lead">Telefono: +34-600000000</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Footer-->
+<footer th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
