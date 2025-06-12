@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white" th:replace="~{headers/header-appointments :: copy}"></header>
+
+<!-- About section-->
+<section id="misCitas">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <h2 th:text="${isAdmin ? 'Citas libres' : 'Mis citas'}"></h2>
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th th:if="${!isAdmin}">Producto</th>
+                        <th th:if="${!isAdmin}">Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="appointment: ${appointmentList}">
+                        <td th:text="${appointment.getStrDate()}"></td>
+                        <td th:text="${appointment.getStrTime()}"></td>
+                        <td th:if="${!isAdmin}" th:text="${appointment.product.name}"></td>
+                        <td th:if="${!isAdmin}" th:text="${appointment.checked && appointment.status ? 'Reserva confirmada' :
+                            (appointment.checked && !appointment.status ? 'Reserva rechazada' : 'Pendiente de confirmar')}">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

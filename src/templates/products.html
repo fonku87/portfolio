@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white" th:replace="~{headers/header-product :: copy}"></header>
+
+<!-- About section-->
+<section>
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-8">
+                <div align="right">
+                    <a class="btn btn-lg btn-info" th:if="${isAdmin}" th:href="@{/product-pdf}">Exportar PDF</a>
+                </div>
+                <h2>Productos</h2>
+                <input id="productID" type="hidden" value="" />
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Product ID</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product: ${listProducts}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.name}"></td>
+                        <td th:text="${product.description}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td>
+                            <p><a th:href="@{/product_edit(productID=${product.id})}">Editar</a></p>
+                            <p><a href="#" data-toggle="modal" data-target="#myModal"
+                               th:attr="onclick=|modifyTextModal('${product.id}', '${product.name}')|"
+                            >Borrar</a></p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- VENTANA MODAL -->
+            <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Borrar producto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" id="divTextoModal">
+                            <p>Modal body text goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-info" onclick="borrarProducto();">Borrar producto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<script type="application/javascript">
+    function modifyTextModal(id, name) {
+
+        document.getElementById("divTextoModal").innerHTML="<p><b>Confirmación datos</b></p>" +
+            "<p>Producto: " + name + "</p>"+
+            "<p>¿ Desea borrar este producto ?</p>"
+        ;
+        document.getElementById("productID").value = id;
+    }
+    function borrarProducto() {
+        window.location = "/product_delete?productID="+document.getElementById("productID").value;
+    }
+</script>
+</body>
+</html>

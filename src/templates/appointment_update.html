@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white" th:replace="~{headers/header-appointments :: copy}"></header>
+
+<!-- About section-->
+<section id="misCitas">
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-6">
+                <h2>Reservar cita</h2>
+
+                <input id="appointmentID" type="hidden" value="" />
+                <input id="oldProductID" type="hidden" th:value="${productList.get(0).id}" />
+
+                <div class="form-group row" style="padding-bottom: 10px;">
+                    <label class="col-4 col-form-label">Producto: </label>
+                    <div class="col-8">
+                        <select id="selectProduct" class="form-select" aria-label="Default select example" onchange="modificarDescripcion();">
+                            <option th:each="product : ${productList}" th:text="${product.name}"
+                                    th:value="${product.id}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row" style="padding-bottom: 10px; ">
+                    <div class="alert alert-info" role="alert"
+                         th:each="product,iter : ${productList}" th:id="${'divDescProducto'+product.id}"
+
+                         th:style="${iter.index == 0 ? 'display: inline-block' : 'display: none'}">
+                        <span><b>Precio: </b><span th:text="${product.price + ' €'}"></span></span>
+                        <p><span><b>Descripción: </b><span th:text="${product.description}"></span></span></p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <table class="table table-striped table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Hora</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="fechaAppo : ${mapDatesAppointment}">
+                            <td th:text="${fechaAppo.key}"></td>
+                            <td>
+                                <p th:each="horaAppo : ${fechaAppo.value}">
+                                    <a href="#" th:text="${horaAppo.key}" data-toggle="modal" data-target="#myModal"
+                                       th:attr="onclick=|modifyTextModal('${fechaAppo.key}', '${horaAppo.key}', '${horaAppo.value}')|"
+                                    ></a>
+                                </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- VENTANA MODAL -->
+                <div class="modal" tabindex="-1" role="dialog" id="myModal">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Confirmación cita</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="divTextoModal">
+                                <p>Modal body text goes here.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Descartar</button>
+                                <button type="button" class="btn btn-info" onclick="crearCita();">Reservar cita</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<script type="application/javascript">
+    function modifyTextModal(fecha, hora, id) {
+
+        var selectProduct = document.getElementById("selectProduct");
+        var product = selectProduct.options[selectProduct.selectedIndex].text;
+
+        document.getElementById("divTextoModal").innerHTML="<p><b>Confirmación datos</b></p>" +
+            "<p>Producto: " + product + "</p>"+
+            "<p>Fecha: " + fecha + "</p>"+
+            "<p>Hora: " + hora + "</p>"+
+            "<p>¿ Desea realizar la reserva con estos datos ?</p>"
+        ;
+        document.getElementById("appointmentID").value = id;
+    }
+    function crearCita() {
+        window.location = "/appointment_update?appointmentID="+document.getElementById("appointmentID").value
+            + "&productID="+document.getElementById("selectProduct").value;
+    }
+    function modificarDescripcion() {
+        var oldIdProduct = document.getElementById("oldProductID").value;
+        document.getElementById("divDescProducto"+oldIdProduct).style.display = "none";
+
+        var selectProduct = document.getElementById("selectProduct");
+        var productID = selectProduct.options[selectProduct.selectedIndex].value;
+        document.getElementById("oldProductID").value = productID;
+        document.getElementById("divDescProducto"+productID).style.display = "inline-block";
+    }
+</script>
+</body>
+</html>

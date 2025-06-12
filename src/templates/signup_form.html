@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{common/head :: copy}"></head>
+
+<body id="page-top">
+<!-- Navigation-->
+<nav th:replace="~{common/navigation :: copy}"></nav>
+
+<!-- Header-->
+<header class="bg-info bg-gradient text-white">
+    <div class="container px-4 text-center">
+        <h1 class="fw-bolder">Registro Usuario</h1>
+    </div>
+</header>
+
+<section>
+    <div class="container px-4">
+        <div class="row gx-4 justify-content-center">
+            <div class="col-lg-4">
+                <div th:if="${error != null}" class="alert alert-danger" role="alert" th:text="'Error: ' + ${error}">
+                </div>
+                <form th:action="@{/process_register}" th:object="${user}" method="post">
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter email" th:field="*{email}" required>
+                    </div>
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="firstName">Nombre</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" th:field="*{firstName}"
+                               required minlength="2" maxlength="20">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="lastName">Apellidos</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" th:field="*{lastName}"
+                               required minlength="2" maxlength="20">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Enter Phone" th:field="*{phone}"
+                               required minlength="9" maxlength="9">
+                    </div>
+                    <div class="form-group" style="padding-bottom: 10px;">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Password" th:field="*{password}"
+                               required minlength="6" maxlength="10">
+                    </div>
+                    <button type="submit" class="btn btn-info">Registrar</button>
+                </form>
+                <small class="mr-3">¿Estás ya registrado? </small><a class="nav-link" th:href="@{/login}">Login</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer-->
+<footer class="footer mt-auto py-3 bg-light" th:replace="~{common/footer :: copy}"></footer>
+<!-- Bootstrap core JS-->
+<script src="js/bootstrap.bundle.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
